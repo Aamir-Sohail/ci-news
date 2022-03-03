@@ -17,7 +17,7 @@ use App\Controllers\Home;
   </head>  
 <!-- The Body Where we Do function -->
 
-<form action="<?= base_url('insert') ?>" method="POST" >
+<form action="<?= base_url('insert') ?>" method="POST" enctype="multipart/form-data" >
 
     <!-- <div class="form-group"> -->
         <label for="exampleInputusername">User Name</label>
@@ -26,7 +26,7 @@ use App\Controllers\Home;
     </div>
           
 	<div class="form-group">
-        <label for="exampleInputusername">Image</label>
+        <label for="exampleInputimage">Image</label>
         <input type="file" name="image" class="form-control"  >
 
     </div>

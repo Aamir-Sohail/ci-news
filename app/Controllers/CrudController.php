@@ -12,18 +12,16 @@ use phpDocumentor\Reflection\Types\This;
 
 class CrudController extends BaseController
 {
-    private $crud =null;
+    private $crud = null;
     public function __construct()
     {
         $this->crud = new CrudModel();
     }
     public function index()
     {
-    
-        $data = $this->crud->findAll();
-        return view('welcome_message' , ['data' => $data]); 
 
-       
+        $data = $this->crud->findAll();
+        return view('welcome_message', ['data' => $data]);
     }
 
 
@@ -31,21 +29,34 @@ class CrudController extends BaseController
     {
 
         $Crud = new CrudController;
-                
-      
-        $file = $this->request->getFile('image');
-        $file_type = $file->getClientMimeType();
-        $file_type =$file->getClientOriginalName();
-        $valid_file_types = array("image/png", "image/jpeg", "image/jpg");
-        $config['max_size'] = 2048;
-        $session = session();
-        if (in_array($file_type, $valid_file_types)) {
 
-            if ($file->isValid() && !$file->hasMoved()) {
-                $imageName = $file->getRandomName();
-                $file->move('uploads/', $imageName);
-                $session->setFlashdata("success", 'file has been uploaded');
-            }
+        $validationRule = [
+            'userfile' => [
+                'label' => 'Image File',
+                'rules' => 'uploaded[userfile]'
+                    . '|is_image[userfile]'
+                    . '|mime_in[userfile,image/jpg,image/jpeg,image/gif,image/png,image/webp]'
+                    . '|max_size[userfile,100]'
+                    . '|max_dims[userfile,1024,768]',
+            ],
+        ];
+        if (! $this->validate($validationRule)) {
+            $data = ['errors' => $this->validator->getErrors()];
+
+            return view('welcome_message', ['data' => $data]);
+        }
+
+        $img = $this->request->getFile('userfile');
+
+        if (! $img->hasMoved()) {
+            $filepath = WRITEPATH . 'uploads/' . $img->store();
+
+            $data = ['uploaded_flleinfo' => new CrudController ($filepath)];
+            return view('upload_success', $data);
+        } 
+    }
+}
+     
 
             $data = [
                 'username' => $this->request->getPost('username'),
@@ -60,24 +71,18 @@ class CrudController extends BaseController
             //    $builder->insert($data);
             $model = new CrudModel();
             $model->insert($data);
-            
-        var_dump($model->errors());
-        }
+
+            var_dump($model->errors());
+    
+    
+
     }
+}
+
+        
+
+
+        
+
     
-
-  
-
-
-
-       
-    
-        public function delete($id = null)
-        {
-            $crud = new CrudModel();
-    
-            $crud->delete($id);
-            return view('welcome_message');
-        }
-    }
 
