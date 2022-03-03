@@ -28,7 +28,9 @@ Insertion
        <td>  1</td>
        <td><?php echo $items['id']?></td>
        <td><?php echo $items['username']?></td>
-       <td><?php echo $items['image']?></td>
+       <td>
+        <Img src="<?php echo "uploads/".$items['image']; ?>" height="100px" width="100px" alt="image" >
+       </td>
        <td><?php echo $items['email']?></td>
        <td><?php echo $items['password']?></td>
        
