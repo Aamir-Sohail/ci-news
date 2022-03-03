@@ -24,20 +24,20 @@ class CrudController extends BaseController
     public function insert()
     {
 
-        // $Crud = new CrudController;
+        $Crud = new CrudController;
                 
-        // $file = $this->request->getFile('image');
-        // $file_type = $file->getClientMimeType();
-        // $valid_file_types = array("image/png", "image/jpeg", "image/jpg");
-        // $config['max_size'] = 2048;
-        // $session = session();
-        // if (in_array($file_type, $valid_file_types)) {
+        $file = $this->request->getFile('image');
+        $file_type = $file->getClientMimeType();
+        $valid_file_types = array("image/png", "image/jpeg", "image/jpg");
+        $config['max_size'] = 2048;
+        $session = session();
+        if (in_array($file_type, $valid_file_types)) {
 
-        //     if ($file->isValid() && !$file->hasMoved()) {
-        //         $imageName = $file->getRandomName();
-        //         $file->move('uploads/', $imageName);
-        //         $session->setFlashdata("success", 'file has been uploaded');
-        //     }
+            if ($file->isValid() && !$file->hasMoved()) {
+                $imageName = $file->getRandomName();
+                $file->move('uploads/', $imageName);
+                $session->setFlashdata("success", 'file has been uploaded');
+            }
 
 
             $data = [
