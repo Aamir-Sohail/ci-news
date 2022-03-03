@@ -33,11 +33,13 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
+// $routes->get('/', 'Home::index');
+$routes->get('/', 'CrudController::index');
 
 // $routes->get('insert', 'CrudController::insert');
 $routes->post('insert','CrudController::insert');
 $routes->post('fetch','CrudController::fetch');
+$routes->get('fetch','CrudController::index');
 
 /*
  * --------------------------------------------------------------------

@@ -15,7 +15,7 @@ class Crud extends Migration
             'image'      => ['type' => 'varchar', 'constraint' => 63],
             'email'    => ['type' => 'varchar', 'constraint' => 255],
             'password'   => ['type' => 'varchar', 'constraint' => 255],
-            'created_at' => ['type' => 'datetime', 'null' => false],
+            'created_at' => ['type' => 'datetime', 'null' => true],
         ]);
         $this->forge->addPrimaryKey('id',true);
       
